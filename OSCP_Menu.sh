@@ -1,5 +1,4 @@
 #!/bin/bash
-#Author:James Garrard
 #Prereqs 
 clear
 updatedb
