@@ -503,6 +503,7 @@ echo ""
 echo "--Tasks Sub-Menu--"
 echo ""
 echo "00) RDP to test windows machine (10.11.20.153)"
+echo "55) Restart OpenVPN"
 echo "66) Tail Apache Access log"
 echo "77) Launch Sparta"
 echo "88) Take a ScreenCapture"
@@ -703,6 +704,11 @@ echo ""
 echo "[*] Command run is: curl $Dest --upload-file $Path"
 echo "[!] Example : curl http://192.168.1.103/dav/ --upload-file /root/Desktop/curl.php -v"
 func_MAIN
+;;
+55)
+service openvpn stop
+service openvpn start
+echo "[*] Openvpn restarted"
 ;;
 66)
 service apache2 start
