@@ -220,8 +220,8 @@ echo "1) Generate Windows Reverse SHELLCODE"
 echo "2) Generate Reverse tcp Shell exe"
 echo "3) Generate CUSTOM PAYLOAD"
 echo "4) Generate CUSTOM PAYLOAD and Handler"
-echo "5) Generate Unique String of size N (Pattern_offset)" 
-echo "6) Get exact Patternoffset match value"
+echo "5) Generate Unique String of size N (Pattern_Create)" 
+echo "6) Get Pattern Offset"
 echo "7) Search for MSF Payload"
 echo "8) Search for MSF Payload Format"
 echo ""
@@ -709,6 +709,7 @@ func_MAIN
 service openvpn stop
 service openvpn start
 echo "[*] Openvpn restarted"
+func_MAIN
 ;;
 66)
 service apache2 start
