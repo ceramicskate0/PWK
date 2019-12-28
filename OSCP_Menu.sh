@@ -85,6 +85,7 @@ echo "5) nmap -sN -F -A -O -T4 {Your Range/CIDR Range} (Scan 100 MOST COMMON POR
 echo "6) nmap --script={ScriptName} {Your Range/CIDR Range} (Scan using Nmap Script)"
 echo "7) Use Nmap Scan to do ScreenCaptures of Visual Services (Http,vnc,rdp)"
 echo "8) nmap an IP for shares and listable contents"
+echo "9) Run Nmap Vulners Script"
 echo ""
 echo "99) Goto Main"
 echo ""
@@ -111,7 +112,7 @@ func_NMAP_MENU
 3) 
 echo "Enter NMAP output file name to be saved under /root/(NAME.xml): "
 read NMAPFile
-nmap -v -O -p 139,445 --script=smb-check-vulns --script-args=unsafe=1 $RangeCIDR --open -oX $NMAPFile
+gnome-terminal --tab --title="NMAP 139 and 445 SMB Vuln Scan"  nmap -v -O -p 139,445 --script=smb-check-vulns --script-args=unsafe=1 $RangeCIDR --open -oX $NMAPFile
 func_NMAP_MENU
 ;;
 4) 
@@ -146,7 +147,7 @@ read targets
 echo ""
 echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/"$NMAPScript" -p "$Ports" "$targets" -oX "$NMAPFile
 echo ""
-nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
+gnome-terminal --tab --title="NMAP Script Scan"  nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
 echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/"$NMAPScript" -p "$Ports" --open "$targets" -oX "$NMAPFile
 echo "[!] Script usage below"
@@ -161,7 +162,13 @@ func_NMAP_MENU
 echo "Enter IP to scan: "
 read IP
 echo "[!] Running: 'nmap -p 445" $IP "--script smb-enum-shares,smb-ls' in another tab..."
-nmap -p 445 $IP --script smb-enum-shares,smb-ls
+gnome-terminal --tab --title="NMAP 445 Enum Scan"  nmap -p 445 $IP --script smb-enum-shares,smb-ls
+func_NMAP_MENU
+;;
+9)
+echo "Enter Target IP or Range: "
+read target
+gnome-terminal --tab --title="NMAP Vulners Scan" nmap -sV --script vulners $target
 func_NMAP_MENU
 ;;
 99) func_MAIN
