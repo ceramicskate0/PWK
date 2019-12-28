@@ -1,0 +1,13 @@
+print "{*} Mem Region no Bad CHars from Step4"
+print "{*} Module has no ASLR or DEP"
+print "{*} Find DLL"
+print "{*} Immunity CMD= !mona Module"
+print "{*} Double CLick DLL you want"
+print "{*} Right Click in Top Left > Search For > Command"
+print "{*) Look for 'jmp esp' or 'push esp' or 'retn'
+print "{*} If none above found,At Top Menu bar near center is 'm' for modules,Click It if Text section is Executable Proceed Below"
+print "{*} Metasploit nasm_shell.rb will then tell you Op code for instruction you need"
+print "{*} In Immunity look for Op Code by typing \"!mona find -s \"{HEX OF OP CODE}\" -m {DLLNAME}.dll"
+print "{*} Look for memory region ID that does not have BadChars from Step4"
+print "{*} Note Memory Address for execution of shell code"
+print "{!} NOTE that Memory Adress in Exploit should be in HEX in REVERSE for x86 code!!!!"
