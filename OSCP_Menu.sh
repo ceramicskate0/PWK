@@ -72,6 +72,7 @@ done
 }
 
 func_NMAP_MENU(){
+nmap --script-updatedb
 while true
 do
 echo "NMAP Menu"
@@ -518,6 +519,7 @@ echo ""
 echo "--Tasks Sub-Menu--"
 echo ""
 echo "00) RDP to test windows machine (10.11.20.153)"
+echo "44) Start Crossfire Debug"
 echo "55) Restart OpenVPN"
 echo "66) Tail Apache Access log"
 echo "77) Launch Sparta"
@@ -528,7 +530,7 @@ echo "Enter Selection: "
 read Option
 case "$Option" in 
 00)
-gnome-terminal --tab --title="RDP Session" -- rdesktop 10.11.20.153 -u "offsec" -p "ZAQvGC9MpjO" -g 85%
+gnome-terminal --tab --title="RDP Session" -- rdesktop 10.11.20.74 -u "offsec" -p "ZAQvGC9MpjO" -g 85%
 clear
 func_MAIN
 ;;
@@ -733,6 +735,10 @@ func_MAIN
 ;;
 77)
 gnome-terminal --tab --title="Sparta" -- sparta
+func_MAIN
+;;
+44)
+gnome-terminal --tab --title="Crossfire Debug" -- edb --run /usr/games/crossfire/bin/crossfire
 func_MAIN
 ;;
 99) exit 0
