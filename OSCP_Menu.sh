@@ -138,7 +138,7 @@ clear
 echo "[*] Searching /usr/share/nmap/scripts/"
 echo "List of Scripts for NMAP"
 if [ -z "$SearchTerm"]
-  then
+then
     ls /usr/share/nmap/scripts/
 else
     ls /usr/share/nmap/scripts/ | grep $SearchTerm
@@ -153,7 +153,7 @@ echo "Enter IP info to target (ie CIDR,Range, Single IP): "
 read targets
 echo ""
 clear
-echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
+echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile"
 echo ""
 nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
@@ -169,7 +169,7 @@ func_NMAP_MENU
 8)
 echo "Enter IP to scan: "
 read IP
-echo "[!] Running: 'nmap -p 445" $IP "--script smb-enum-shares,smb-ls' in another tab..."
+echo "[!] Running: 'nmap -p 445 $IP --script smb-enum-shares,smb-ls' in another tab..."
 nmap -p 445 $IP --script smb-enum-shares,smb-ls 
 func_NMAP_MENU
 ;;
