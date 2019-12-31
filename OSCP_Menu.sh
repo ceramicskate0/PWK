@@ -759,6 +759,7 @@ func_MAIN
 55)
 service openvpn stop
 service openvpn start
+service openvpn status
 echo "[*] Openvpn restarted"
 func_MAIN
 ;;
