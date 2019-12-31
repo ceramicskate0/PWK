@@ -163,13 +163,18 @@ func_NMAP_MENU
 echo "Enter IP to scan: "
 read IP
 echo "[!] Running: 'nmap -p 445" $IP "--script smb-enum-shares,smb-ls' in another tab..."
-gnome-terminal --tab --title="NMAP 445 Enum Scan"  nmap -p 445 $IP --script smb-enum-shares,smb-ls
+nmap -p 445 $IP --script smb-enum-shares,smb-ls 
 func_NMAP_MENU
 ;;
 9)
 echo "Enter Target IP or Range: "
 read target
-gnome-terminal --tab --title="NMAP Vulners Scan" nmap -sV --script vulners $target
+echo ""
+echo ""
+clear
+nmap -sV --script vulners --script-args mincvss=5.0 $target 
+echo ""
+echo ""
 func_NMAP_MENU
 ;;
 99) func_MAIN
