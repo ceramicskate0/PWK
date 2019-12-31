@@ -83,7 +83,7 @@ echo "2) nmap -p 139,445 --script smb-enum-users {Your Range/CIDR Range}"
 echo "3) nmap -p 139,445 --script=smb-check-vulns --script-args=unsafe=1 {Your Range/CIDR Range}"
 echo "4) nmap -sU --open -p 161(SNMP) {Your Range/CIDR Range}"
 echo "5) nmap -sN -F -A -O -T4 {Your Range/CIDR Range} (Scan 100 MOST COMMON PORTS)"
-echo "6) nmap --script={ScriptName} {Your Range/CIDR Range} (Scan using Nmap Script)"
+echo "6) NMAP Script Scan on Specific Port"
 echo "7) Use Nmap Scan to do ScreenCaptures of Visual Services (Http,vnc,rdp)"
 echo "8) nmap an IP for shares and listable contents"
 echo "9) Run Nmap Vulners Script"
@@ -131,12 +131,18 @@ func_NMAP_MENU
 6) 
 echo "Enter NMAP output file name to be saved under /root/(NAME.xml): "
 read NMAPFile
-echo "List of Scripts for NMAP"
 echo""
 echo "Enter Search Term else all will be listed: "
 read SearchTerm
+clear
 echo "[*] Searching /usr/share/nmap/scripts/"
-ls -l /usr/share/nmap/scripts/ | grep $SearchTerm
+echo "List of Scripts for NMAP"
+if [ -z "$SearchTerm"]
+  then
+    ls /usr/share/nmap/scripts/
+else
+    ls /usr/share/nmap/scripts/ | grep $SearchTerm
+fi
 echo ""
 echo "Enter the name of the script to use (or 'all' option is HailMarry (SLOW,event for single IP)): "
 read NMAPScript
@@ -146,13 +152,14 @@ read Ports
 echo "Enter IP info to target (ie CIDR,Range, Single IP): "
 read targets
 echo ""
-echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/"$NMAPScript" -p "$Ports" "$targets" -oX "$NMAPFile
+clear
+echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
-gnome-terminal --tab --title="NMAP Script Scan"  nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
+nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
-echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/"$NMAPScript" -p "$Ports" --open "$targets" -oX "$NMAPFile
 echo "[!] Script usage below"
 cat /usr/share/nmap/scripts/$NMAPScript | grep "\-\-"
+leafpad $NMAPFile
 func_NMAP_MENU
 ;;
 7)
