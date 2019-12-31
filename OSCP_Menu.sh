@@ -83,7 +83,7 @@ echo "2) nmap -p 139,445 --script smb-enum-users {Your Range/CIDR Range}"
 echo "3) nmap -p 139,445 --script=smb-check-vulns --script-args=unsafe=1 {Your Range/CIDR Range}"
 echo "4) nmap -sU --open -p 161(SNMP) {Your Range/CIDR Range}"
 echo "5) nmap -sN -F -A -O -T4 {Your Range/CIDR Range} (Scan 100 MOST COMMON PORTS)"
-echo "6) NMAP Script Scan on Specific Port"
+echo "6) NMAP Script Scan"
 echo "7) Use Nmap Scan to do ScreenCaptures of Visual Services (Http,vnc,rdp)"
 echo "8) nmap an IP for shares and listable contents"
 echo "9) Run Nmap Vulners Script"
@@ -144,7 +144,7 @@ else
     ls /usr/share/nmap/scripts/ | grep $SearchTerm
 fi
 echo ""
-echo "Enter the name of the script to use (or 'all' option is HailMarry (SLOW,event for single IP)): "
+echo "Enter the name of the script to use: "
 read NMAPScript
 echo""
 echo "Enter port numbers (ie 25,445): "
@@ -153,7 +153,7 @@ echo "Enter IP info to target (ie CIDR,Range, Single IP): "
 read targets
 echo ""
 clear
-echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile"
+echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
 nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
@@ -169,7 +169,7 @@ func_NMAP_MENU
 8)
 echo "Enter IP to scan: "
 read IP
-echo "[!] Running: 'nmap -p 445 $IP --script smb-enum-shares,smb-ls' in another tab..."
+echo "[!] Running: 'nmap -p 445" $IP "--script smb-enum-shares,smb-ls' in another tab..."
 nmap -p 445 $IP --script smb-enum-shares,smb-ls 
 func_NMAP_MENU
 ;;
