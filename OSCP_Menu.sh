@@ -281,8 +281,7 @@ commandlinearg+=" -p "$payload
 echo "[+] "$commandlinearg
 echo "[*] Generating List of Payload Formats...please wait for prompt"
 msfvenom -l formats
-echo "Payloads Ref's:"
-echo "Linux=-f elf"
+echo "Payloads Ref's: "
 echo "'C' is useful for both Windows and Linux"
 echo ""
 echo "Enter Payload format: "
@@ -296,7 +295,7 @@ echo "Enter Payload Architiecture: "
 read platform
 commandlinearg+=" --platform "$platform
 
-echo "Enter Bad Byte Codes (ie \"\x00\"):"
+echo "Enter Bad Byte Codes (ie \"\x00\"): "
 read Bytesofcode
 
 echo "Enter Arch type 'x86' or 'x64': "
