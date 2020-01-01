@@ -764,6 +764,7 @@ echo "[!] Example : curl http://192.168.1.103/dav/ --upload-file /root/Desktop/c
 func_MAIN
 ;;
 55)
+clear
 service openvpn stop
 service openvpn start
 service openvpn status
