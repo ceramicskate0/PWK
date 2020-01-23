@@ -146,14 +146,14 @@ fi
 echo ""
 echo "Enter the name of the script to use: "
 read NMAPScript
-echo""
+echo ""
 echo "Enter port numbers (ie 25,445): "
 read Ports
 echo "Enter IP info to target (ie CIDR,Range, Single IP): "
 read targets
 echo ""
 clear
-echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
+echo "[*] Command used was: nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile"
 echo ""
 nmap -v -O --script=/usr/share/nmap/scripts/$NMAPScript -p $Ports --open $targets -oX $NMAPFile
 echo ""
