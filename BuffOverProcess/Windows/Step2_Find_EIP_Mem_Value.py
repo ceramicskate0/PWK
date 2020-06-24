@@ -10,7 +10,7 @@ Buffer='Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3
 #Tport=raw_input("Enter Target Port: ")
 	
 UN='username'
-target='10.11.20.153'
+target=''
 Tport=110
 
 try:	
