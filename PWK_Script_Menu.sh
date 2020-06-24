@@ -38,7 +38,7 @@ func_ZoneXFer(){
 echo "Enter Domain Name to Search: "
 read DomainName
 echo ""
-echo "[*] Launching OSCP Scripted DNS Tool (host -l)"
+echo "[*] Launching PWK Scripted DNS Tool (host -l)"
 echo ""
 for server in $(host -t ns $DomainName | cut -d" " -f4); do
 	host -l $1 $server | grep "has address"
